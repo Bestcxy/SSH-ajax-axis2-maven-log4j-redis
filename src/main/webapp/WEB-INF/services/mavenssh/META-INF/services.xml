@@ -1,0 +1,16 @@
+<service name="SpringAwareService"><!-- 访问的时候，这个是wsdl服务的名字 -->
+    <description>
+        simple spring example
+    </description>
+    <!-- <parameter name="ServiceClass">com.bestcxx.mavenstu.mavenssh.axis2.Axis2Webservice</parameter> -->
+    <parameter name="ServiceObjectSupplier">org.apache.axis2.extensions.spring.receivers.SpringServletContextObjectSupplier</parameter>
+    <parameter name="SpringBeanName">springAwareService</parameter><!-- 这个是spring中配置的bean名字 -->
+    <!-- <messageReceivers>
+        <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
+        <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out" class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+	</messageReceivers> -->
+    <!-- <messageReceiver class="org.apache.axis2.receivers.RawXMLINOutMessageReceiver"/> -->
+    <parameter name="getStrA"><!-- 这个是对外提供的服务的具体方法名 -->
+    <messageReceiver class="org.apache.axis2.receivers.RawXMLINOutMessageReceiver"/>
+    </parameter>
+</service> 

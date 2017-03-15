@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:orm="http://www.springframework.org/schema/orm" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+						http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+						http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd
+						http://www.springframework.org/schema/orm http://www.springframework.org/schema/orm/spring-orm-4.3.xsd
+	">
+	<!-- 自动扫描注册为bean -->
+	<!-- service bean -->
+	<context:component-scan base-package="com.bestcxx.mavenstu.mavenssh.service.impl">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>
+	<!-- dao bean -->
+	<context:component-scan base-package="com.bestcxx.mavenstu.mavenssh.dao.impl">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan>
+	<!-- <context:component-scan base-package="com.bestcxx.mavenstu.mavenssh.control">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan> -->
+	<!-- action bean -->
+		<bean class="com.bestcxx.mavenstu.mavenssh.control.PersonAction" id="personAction" scope="prototype"/>
+	
+	<!-- axis2 bean -->
+	<!--如果没有ServletContext 则需要增加下面这句 -->
+	<!--	<bean id="applicationContext" 
+    class="org.apache.axis2.extensions.spring.receivers.ApplicationContextHolder" /> -->
+
+    <bean id="springAwareService" class="com.bestcxx.mavenstu.mavenssh.axis2.Axis2Webservice" scope="prototype"/>
+   
+	<!-- 定义受环境影响易变的变量 -->
+	<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> -->
+	<bean class="com.bestcxx.mavenstu.mavenssh.util.CustomizedPropertyPlaceholderConfigurer"><!-- 覆盖重写这个类，可以在java代码中获取加载文件的值key-value形式 -->
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<!-- 数据库配置 -->
+				<value>classpath:config/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 定义数据源-注解配置 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" >
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+		<!-- 初始化创建的数据库连接数 -->
+		<property name="initialSize" value="${jdbc.initialSize}"/>
+		<!-- 数据库连接池最大的连接数 -->
+		<property name="maxActive" value="${jdbc.maxActive}"/>
+	</bean>
+	<!--  声明Hibernate 的 Session 工厂-->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<!-- model里含有具体的实体类若干 -->
+		<property name="packagesToScan" value="com.bestcxx.mavenstu.mavenssh.model"/>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop><!--自动建表 http://www.cnblogs.com/feilong3540717/archive/2011/12/19/2293038.html -->
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 操作异常转化为Spring的表达方式 -->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+	
+	<!-- hibernate事物管理器的声明，txAdvice会调用，所以需要声明，如果使用其他的则直接更换即可，和代码是松耦合的 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- tx设置事物管理，当然还有其他的设置 ,指定管理者为id="transactionManager"的bean,其实不指定也可以Spring自己会注入但是id=transactionManager的这个bean必须声明-->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add" propagation="REQUIRED"/>
+			
+			<!--read-only为true则无法写数据库-->
+			<tx:method name="*" propagation="REQUIRED" read-only="false"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 设置切面，将事物管理通知给方法 -所有实现PersonService接口的方法,对于事务的意义而言-->
+	<aop:config>
+		<!-- 限定到一个java文件 -->
+		<!-- <aop:advisor advice-ref="txAdvice" pointcut="execution(* *..PersonServiceImpl.*(..))"/> -->
+		
+		<!-- 限定到一个文件夹 -->
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.bestcxx.mavenstu.mavenssh.service.impl..*(..))"/>
+		
+		
+	</aop:config>
+	
+	<!-- tx:advice和 切点的替代法-注解-->
+	<!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+</beans>

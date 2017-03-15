@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+		<!-- struts-default-package -->
+		<package name="register" extends="mavenssh" namespace="/register">
+			<!--<action name="*" class="stu.demo.action.PersonAction" method="{1}">-->
+			<!--在Spring中， PersonAction 已经被注册为bean了，可以使用其id来调用,声明为personAction，自动扫描的话为非限定类名personAction -->
+			<action name="register" class="personAction" method="register">
+				<result name="success">/register/success.jsp</result>
+				<result name="input">/index.jsp</result>	
+			</action>
+			
+			<!-- 验证用户名的唯一性 -->
+			<action name="checkUserName" class="personAction" method="checkUserName">
+				<!-- <result type="json" name="input">
+					<param name="root">message</param>
+				</result> -->
+			</action>
+		</package>
+</struts>
