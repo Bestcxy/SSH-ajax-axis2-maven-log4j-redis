@@ -14,9 +14,9 @@
 			
 			<!-- 验证用户名的唯一性 -->
 			<action name="checkUserName" class="personAction" method="checkUserName">
-				<result type="json">
+				<!-- <result type="json">
 					<param name="root">message</param>
-				</result>
+				</result> -->
 			</action>
 		</package>
 </struts>
