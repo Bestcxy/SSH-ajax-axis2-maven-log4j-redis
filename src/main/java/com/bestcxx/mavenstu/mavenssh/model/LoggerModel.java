@@ -13,8 +13,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.dom4j.Text;
-
 @SuppressWarnings("serial")
 @Table(name="LOGGER")
 @Entity(name="LOGGER")

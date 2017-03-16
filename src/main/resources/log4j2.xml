@@ -58,10 +58,10 @@
 	      <Column name="EVENT_ID" literal="LOGGER_SEQUENCE.NEXTVAL" /> 
 	      -->
 	      <Column name="EVENT_DATE" isEventTimestamp="true" />
-	      <Column name="LEVEL" pattern="%level{1}" />
-	      <Column name="LOGGER" pattern="%logger{1}" />
-	      <Column name="MESSAGE" pattern="%message{1}" />
-	      <Column name="THROWABLE" pattern="%ex{1000}" />
+	      <Column name="LEVEL" pattern="%level" />
+	      <Column name="LOGGER" pattern="%logger" />
+	      <Column name="MESSAGE" pattern="%message" />
+	      <Column name="THROWABLE" pattern="%ex{full}" />
        </JDBC>
     </Appenders>  
     
