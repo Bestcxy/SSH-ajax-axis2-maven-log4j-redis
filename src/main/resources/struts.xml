@@ -48,7 +48,7 @@
 	
 	<package name="mavenssh" extends="json-default" namespace="/">
 		<global-results>
-			<result name="message" type="json">
+			<result type="json">
 				<param name="root">message</param>
 			</result>
 			<!-- <result name="outTime" type="redirectAction">

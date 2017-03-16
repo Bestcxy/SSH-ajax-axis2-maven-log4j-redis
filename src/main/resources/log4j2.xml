@@ -70,6 +70,8 @@
         <Root level="trace">  
             <AppenderRef ref="toConsole" />
             <AppenderRef ref="databaseAppender"/>
+            <AppenderRef ref="toFile"/>
+            
         </Root>
         <!-- 使用过滤器 -->
         <Logger name="toConsoleFilter" level="trace" additivity="false">  
@@ -87,7 +89,7 @@
     	</Logger>
     	
     	<!-- 输出到文件 -->
-    	<Logger name="mylogtofile" additivity="false" level="TRACE"><!--additivity="false" 不再输出父级日志  -->
+    	<Logger name="mylogtofile" additivity="false" level="INFO"><!--additivity="false" 不再输出父级日志  -->
     		<AppenderRef ref="toFile" />
     	</Logger> 
     	
