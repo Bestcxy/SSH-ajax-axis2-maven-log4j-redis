@@ -63,7 +63,7 @@
 					<!-- 端口设置 -->
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>8085</port>
+							<port>8086</port>
 						</connector>
 					</connectors>
 				</configuration>

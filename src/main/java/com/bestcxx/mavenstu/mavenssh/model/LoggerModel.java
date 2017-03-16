@@ -1,6 +1,7 @@
 package com.bestcxx.mavenstu.mavenssh.model;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.dom4j.Text;
 
 @SuppressWarnings("serial")
 @Table(name="LOGGER")
@@ -51,21 +52,21 @@ public class LoggerModel implements Serializable{
 	public void setLevel(String level) {
 		this.level = level;
 	}
-	@Column(name="LOGGER",nullable=true,length=100)
+	@Column(name="LOGGER",nullable=true,length=1000)
 	public String getLogger() {
 		return logger;
 	}
 	public void setLogger(String logger) {
 		this.logger = logger;
 	}
-	@Column(name="MESSAGE",nullable=true,length=100)
+	@Column(name="MESSAGE",nullable=true,length=1000)
 	public String getMessage() {
 		return message;
 	}
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	@Column(name="THROWABLE",nullable=true,length=100)
+	@Column(name="THROWABLE",nullable=true,length=1000)
 	public String getThrowable() {
 		return throwable;
 	}
