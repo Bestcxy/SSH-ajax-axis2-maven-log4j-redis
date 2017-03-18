@@ -7,9 +7,9 @@ package com.bestcxx.mavenstu.mavenssh.test;
  *  StaticInterfaceImpl.java	StaticInterfaceThird.java
  *  
  * ·接口类中允许有静态变量，但是不允许有静态方法
- * ·接口类中允许使用 public 修饰方法
+ * ·接口类中允许使用 public、abstract 修饰方法
  * 
- * ·接口类中的静态变量不允许继承
+ * ·接口类中的静态变量不允许继承,同时由于接口类无构造方法而无法修改
  * ·接口类中不允许有具体实现方法
  * 
  * ·在接口实现类（包括普通类和抽象类）中，除了static修饰的静态变量不允许覆盖重写，其他方法会强制覆盖重写

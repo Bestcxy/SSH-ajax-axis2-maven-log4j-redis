@@ -1,6 +1,7 @@
 package com.bestcxx.mavenstu.mavenssh.test;
 
 /*
+ * ·涉及到的类 CommonStatic.java	CommonStaticAgain.java
  * ·普通类不允许使用static修饰
  * ·普通类的继承类不会被要求强制覆盖重写任何方法
  * ·普通类的继承类可以选择覆盖重写普通方法，但是不允许覆盖重写静态方法

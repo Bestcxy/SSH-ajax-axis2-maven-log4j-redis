@@ -1,6 +1,7 @@
 package com.bestcxx.mavenstu.mavenssh.test;
 
 /*
+ * ·涉及到的类 AbstractStatic.java	AbstractStaticAgain.java
  * ·抽象类不允许使用 static 修饰
  * ·抽象类允许静态变量的存在
  * ·抽象类中不允许使用static修饰抽象方法
