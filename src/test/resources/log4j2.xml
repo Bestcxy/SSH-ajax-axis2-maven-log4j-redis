@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN"  monitorInterval="300"><!-- 每隔300秒重新读取配置文件，对web应用很实用 -->
+	<properties><!-- 定义常量 -->
+        <property name="LOG_HOME">D://a/log</property>
+        <property name="FILE_NAME">mavenssh2</property>  
+    </properties>  
+    <Appenders>
+    	<!-- 日志输出格式 ：<Console是控制台,<File是文件,<RollingRandomAccessFile按时间和文件大小生成多个日志,<JDBC是数据库,<Async异步-->  
+    	
+    	<!-- Console 输出到控制台及格式--> 
+        <Console name="toConsole" target="SYSTEM_OUT"> 
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t]  %F %M %l- %-5level %logger{36} %msg%n" />  
+        </Console> 
+        <Console name="toConsole2" target="SYSTEM_OUT"> 
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}%msg[2]%n" />  
+        </Console> 
+        <!-- 异步日志 -->
+         <Async name="Async">  
+            <AppenderRef ref="toConsole" /> 
+            <AppenderRef ref="toConsole2"/> 
+        </Async>  
+        
+        <!-- Console 输出到控制台及格式-并使用过滤器 <Filters--> 
+        <Console name="toConsoleFilter" target="SYSTEM_OUT"> 
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t]  %F %M %l- %-5level %logger{36} %msg%n" />  
+        	<Filters>
+        		<ThresholdFilter level="fatal" onMatch="DENY" onMismatch="NEUTRAL" /><!-- 高级别优先设置，NEUTRAL不影响低等级设置 -->
+        		<ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY" /> <!-- 低级别及以后遵循同样的标准-已经声明的高级别除外 -->  
+            </Filters>  
+        </Console> 
+        
+        <!-- File 输出到文件及格式 -->
+        <File name="toFile" fileName="D://a/log/mavenssh.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />  
+        </File> 
+        
+        <!-- RollingRandomAccessFile 
+        TimeBasedTriggeringPolicy interval="1"一个最小时间单位生成一个文件
+        SizeBasedTriggeringPolicy size="1 MB" 当文件大小超过1MB生成一个日志文件，你可以写成0.001MB实验一下效果
+        DefaultRolloverStrategy max="2" 同一个时间节点最多生成2个日志文件，否则后面的覆盖前面的，如1分钟10MB,允许2个，则最终是第9MB和第10MB的日志存在 时间节点-index(1,2)
+         -->
+        <RollingRandomAccessFile name="toFileByRoll"  
+            fileName="${LOG_HOME}/${FILE_NAME}.log"  
+            filePattern="${LOG_HOME}/${date:yyyy-MM}/${FILE_NAME}-%d{yyyy-MM-dd HH-mm}-%i.log">  
+            <PatternLayout  
+                pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />  
+            <Policies>  
+                <TimeBasedTriggeringPolicy interval="1" />
+                <SizeBasedTriggeringPolicy size="0.001 MB" />  
+            </Policies>  
+            <DefaultRolloverStrategy max="2" />  
+        </RollingRandomAccessFile>
+        <!-- 日志输入到数据库 -->
+        <!-- 必须先创建表结构，所以建议保留日志表实体，在项目启动时自动创建或更新表 -->
+        <JDBC name="databaseAppender" tableName="LOGGER">
+	      <ConnectionFactory class="com.bestcxx.mavenstu.mavenssh.util.ConnectionFactory" method="getDatabaseConnection" />
+	      <!-- mysql 设置主键自增策略，对于数据库不支持的则开启下面这字段 
+	      <Column name="EVENT_ID" literal="LOGGER_SEQUENCE.NEXTVAL" /> 
+	      -->
+	      <Column name="EVENT_DATE" isEventTimestamp="true" />
+	      <Column name="LEVEL" pattern="%level" />
+	      <Column name="LOGGER" pattern="%logger" />
+	      <Column name="MESSAGE" pattern="%message" />
+	      <Column name="THROWABLE" pattern="%ex{full}" />
+       </JDBC>
+    </Appenders>  
+    
+    <Loggers><!-- 日志类别 --> 
+    	<!-- 定义根日志类别  查看level http://blog.csdn.net/techq/article/details/6636287--> 
+        <Root level="trace">  
+            <AppenderRef ref="toConsole" />
+            <AppenderRef ref="databaseAppender"/>
+            <AppenderRef ref="toFile"/>
+            
+        </Root>
+        <!-- 使用过滤器 -->
+        <Logger name="toConsoleFilter" level="trace" additivity="false">  
+            <AppenderRef ref="toConsoleFilter" />
+        </Logger>
+        <!-- 使用异步 -->
+        <Logger name="asyncConsole" additivity="false" level="trace">
+        	<AppenderRef ref="Async"/>
+        </Logger>
+        
+        
+        <!-- 输出到控制台 -->
+    	<Logger name="mylog" additivity="false" level="TRACE"><!--additivity="false" 不再输出父级日志  -->
+    		<AppenderRef ref="toConsole" />
+    	</Logger>
+    	
+    	<!-- 输出到文件 -->
+    	<Logger name="mylogtofile" additivity="false" level="INFO"><!--additivity="false" 不再输出父级日志  -->
+    		<AppenderRef ref="toFile" />
+    	</Logger> 
+    	
+    	<!-- 按照时间节点和文件大小滚动生成日志 -->
+    	<Logger name="mylogtofileroll" additivity="false" level="TRACE"><!--additivity="false" 不再输出父级日志  -->
+    		<AppenderRef ref="toFileByRoll" />
+    	</Logger>  
+    	
+    	<!-- 保存到数据库 -->
+    	<Logger name="databaseAppender" additivity="false" level="INFO"><!--additivity="false" 不再输出父级日志  -->
+    		<AppenderRef ref="databaseAppender" />
+    	</Logger> 
+    </Loggers> 
+    
+</Configuration>  

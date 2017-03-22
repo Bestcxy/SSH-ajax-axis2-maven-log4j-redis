@@ -1,6 +1,8 @@
 package com.bestcxx.mavenstu.mavenssh.control;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 
 import com.bestcxx.mavenstu.mavenssh.model.Person;
@@ -8,6 +10,7 @@ import com.bestcxx.mavenstu.mavenssh.model.Person;
 @Controller
 @SuppressWarnings("serial") 
 public class PersonAction extends BaseAction<Person> {
+	private Logger logger=LogManager.getLogger(PersonAction.class);
 	/*@Validations( 
 			requiredStrings={ 
 			@RequiredStringValidator(fieldName="userName",message="用户名不能为空!"), 
@@ -19,6 +22,7 @@ public class PersonAction extends BaseAction<Person> {
 	
 	public String register(){
 		if(personService.addPerson(model)){
+			logger.info("用户注册成功了");
 			return SUCCESS;
 		}
 		return INPUT;

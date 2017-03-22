@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Rollback(false)
 public class LoggerDaoImplTest {
 
-	@Test
+	@Test 
 	public void testAddLogger(){
 //		Logger logger = LogManager.getLogger(LoggerDaoImplTest.class); 
 		
