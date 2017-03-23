@@ -31,6 +31,7 @@ public abstract class BaseDaoByGenericImpl <T, PK extends Serializable>{
 	protected Class<PK> pkClass;
 	
 	//利用反射机制获取泛型类子类泛型参数的具体类型-这个必须写在构造方法中
+	@SuppressWarnings("unchecked")
 	public BaseDaoByGenericImpl() {
 		tClass=(Class<T>) getModelClass(tClass, 0);
 		pkClass=(Class<PK>) getModelClass(pkClass, 1);
@@ -38,7 +39,7 @@ public abstract class BaseDaoByGenericImpl <T, PK extends Serializable>{
 		//System.out.println("泛型类构造方法获取到了第二个泛型参数具体类型  kClass="+pkClass+"["+this.getClass()+"]");
 	}
 	//泛型类作为父类，可以获取子类的所有实际参数的类型
-	@SuppressWarnings("unchecked")
+
 	public Class<?> getModelClass(Class modelClass,int index){
 		Type genType = this.getClass().getGenericSuperclass();// 得到泛型父类
 		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();//一个泛型类可能有多个泛型形参，比如ClassName<T,K> 这里有两个泛型形参T和K，Class Name<T> 这里只有1个泛型形参T
@@ -58,6 +59,7 @@ public abstract class BaseDaoByGenericImpl <T, PK extends Serializable>{
 	protected PK pkModel;
 	
 	//将子类的泛型类实例化-获取实例化对象的方法
+	@SuppressWarnings("unchecked")
 	public <M> M getModel(Class<M> mClass,M mModel,int index) {
 		try {
 			mModel = (M) getModelClass(mClass,index).newInstance();

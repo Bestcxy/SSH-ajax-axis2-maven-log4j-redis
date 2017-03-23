@@ -24,7 +24,7 @@ public abstract class BaseDaoImpl <T, PK extends Serializable>{
     }
 	/**
 	 * 获得Dao对于的实体类
-	 *
+	 * 这个方法需要继承类来实现，return 具体实体类.class
 	 * @return
 	 */
 	abstract protected Class<T> getEntityClass();
@@ -81,5 +81,11 @@ public abstract class BaseDaoImpl <T, PK extends Serializable>{
 		}
 		
 		return (List<T>)query.list();
+	}
+	
+	protected boolean add(T t){
+		getSession().save(t);
+		return true;
+		
 	}
 }

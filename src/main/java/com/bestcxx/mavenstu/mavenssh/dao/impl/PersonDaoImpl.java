@@ -1,8 +1,6 @@
 package com.bestcxx.mavenstu.mavenssh.dao.impl;
 
 
-import javax.persistence.Table;
-
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
@@ -48,6 +46,4 @@ public class PersonDaoImpl implements PersonDao {
 		return (Person) currentSession().get(Person.class, userName);
 	}
 
-	
-	
 }
