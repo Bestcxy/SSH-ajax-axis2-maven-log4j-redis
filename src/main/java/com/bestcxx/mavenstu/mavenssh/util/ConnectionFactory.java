@@ -25,7 +25,7 @@ public class ConnectionFactory {
  
     private final DataSource dataSource;
  
-    private static InputStream inStream = ConnectionFactory.class.getClassLoader().getResourceAsStream("config/jdbc.properties");
+    private static InputStream inStream = ConnectionFactory.class.getClassLoader().getResourceAsStream(EnumUtil.COMMON_DATABASE_PROPERTIES.toString());
     private static Properties prop = new Properties();
 
 	private ConnectionFactory() {
