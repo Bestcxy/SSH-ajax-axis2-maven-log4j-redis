@@ -6,6 +6,8 @@ package com.bestcxx.mavenstu.mavenssh.util;
  */
 public enum EnumUtil {
 	//可以以逗号间隔  
+	COMMON_ENCODING("utf-8"),
+	FILE_TXT_PATH("src/main/webapp/WEB-INF/file/filetxt.txt"),//src/main/resources/file/filetxt.txt 也是可以的，都是相对路径
 	WECHAT_APPID("appid"),				   	//微信公众号平台账户的appid
 	WECHAT_APPSECRET("appsecret"), //微信公众号平台账户的appsecret
 	PROXY_SERVICEPORT_SHEZHI("0"),     //代理设置-是否启用代理，0-NO,1-YES

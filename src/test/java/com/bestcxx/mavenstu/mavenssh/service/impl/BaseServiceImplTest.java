@@ -1,8 +1,6 @@
 package com.bestcxx.mavenstu.mavenssh.service.impl;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import junit.framework.TestCase;
 
 import org.junit.Test;

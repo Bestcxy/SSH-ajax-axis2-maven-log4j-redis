@@ -82,5 +82,4 @@ public abstract class BaseDaoImpl <T, PK extends Serializable>{
 		
 		return (List<T>)query.list();
 	}
-
 }
