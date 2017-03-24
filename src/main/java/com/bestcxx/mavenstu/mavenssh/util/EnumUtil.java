@@ -5,7 +5,9 @@ package com.bestcxx.mavenstu.mavenssh.util;
  * @author wujie
  */
 public enum EnumUtil {
-	//可以以逗号间隔  
+	//可以以逗号间隔 
+	FILE_OFFICE_EXCEL_NAME("officeExcelDemo.xlsx"),
+	FILE_OFFICE_EXCEL_PATH("src/main/webapp/WEB-INF/file"),//office 的 excel文件
 	COMMON_DATABASE_PROPERTIES("config/jdbc.properties"),
 	COMMON_ENCODING("utf-8"),
 	FILE_TXT_PATH("src/main/webapp/WEB-INF/file/filetxt.txt"),//src/main/resources/file/filetxt.txt 也是可以的，都是相对路径

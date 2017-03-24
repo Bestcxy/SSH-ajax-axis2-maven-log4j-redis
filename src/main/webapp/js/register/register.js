@@ -27,6 +27,7 @@ function checkUserName2(theid){
 				}else{
 					//增加非法提示
 					alert("false");
+					return false;
 				}
 			
 			},
