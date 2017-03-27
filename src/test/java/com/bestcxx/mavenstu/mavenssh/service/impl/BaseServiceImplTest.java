@@ -3,6 +3,7 @@ package com.bestcxx.mavenstu.mavenssh.service.impl;
 import java.text.SimpleDateFormat;
 import junit.framework.TestCase;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,7 @@ public class BaseServiceImplTest {
 	}*/
 	//按照id查
 	@Test
+	@Ignore
 	public void testBaseDaoImplUpdate(){
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
 		

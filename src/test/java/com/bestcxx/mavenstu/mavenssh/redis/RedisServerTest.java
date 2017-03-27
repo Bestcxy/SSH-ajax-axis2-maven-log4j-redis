@@ -1,9 +1,10 @@
 package com.bestcxx.mavenstu.mavenssh.redis;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-
+@Ignore
 public class RedisServerTest {
 	private RedisServer redisServer;
 	@Before
