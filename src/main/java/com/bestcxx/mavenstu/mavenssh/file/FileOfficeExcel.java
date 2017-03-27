@@ -98,9 +98,66 @@ public class FileOfficeExcel {
 	}
 
 	
-	
-	public void writeOfficeExcelFile() {
+	/**
+	 * 
+	 * @instruction 在原先的excel文件续写-没有加末尾判断，可能会造成数据被覆盖
+	 * @Datetime 2017年3月27日 下午6:25:26
+	 * @param excelPath
+	 * @param excelName
+	 */
+	public void writeOfficeExcelFile(String excelPath, String excelName) {
+		Workbook wb;
+		File file=new File(excelPath,excelName);
+		String fileName=excelPath+"/"+excelName;
+		try {
+			wb = WorkbookFactory.create(file);
+			Sheet sheet = wb.getSheetAt(0);
+			Row row=sheet.createRow(1);
+			
+			for (int i = 0; i < 10; i++) {
+				Cell cell = row.createCell(i);
+				cell.setCellValue(i + "");
+			}
+			
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			OutputStream out = null;
+			try {
+				wb.write(os);
+				byte[] xls = os.toByteArray();
+				out = new FileOutputStream(file);
+				out.write(xls);
+			} catch (IOException e) {
+				logger.info(e.toString());
+			} finally {
+				try {
+					if(wb!=null){
+						wb.close();					
+					}
+					if(out!=null){
+						out.close();
+					}
+					if(os!=null){
+						os.close();					
+					}
+					logger.info("新建文件 "+fileName);
+				} catch (IOException e) {
+					logger.info(e.toString());
+				}
 
+			}
+			
+		} catch (EncryptedDocumentException e) {
+			logger.info(e.toString());
+		} catch (InvalidFormatException e) {
+			logger.info(e.toString());
+		} catch (IOException e) {
+			logger.info(e.toString());
+		}  
+         
+        
+         
+         
+         
 	}
 	
 	/**
