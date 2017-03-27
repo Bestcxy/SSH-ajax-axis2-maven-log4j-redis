@@ -22,5 +22,17 @@ public class FileOfficeExcelTest {
 		
 		f.readOfficeExcelFile(excelPath,excelName);
 	}
+	
+	@Test
+	public void testCreateOfficeExcelFile(){
+		FileOfficeExcel f=new FileOfficeExcel();
+		
+		//excel 所在文件夹
+		String excelPath = EnumUtil.FILE_OFFICE_EXCEL_PATH.toString();
+		//excel 名称
+		String excelName = "test.xlsx";
+		
+		f.createOfficeExcelFile(excelPath,excelName);
+	}
 
 }
