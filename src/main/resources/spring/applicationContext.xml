@@ -71,6 +71,8 @@
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop><!--自动建表 http://www.cnblogs.com/feilong3540717/archive/2011/12/19/2293038.html -->
 			</props>
 		</property>
+		<!-- 使用 EhCache-->
+		<propery name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
 	</bean>
 	
 	<!-- 操作异常转化为Spring的表达方式 -->
@@ -104,4 +106,6 @@
 	
 	<!-- tx:advice和 切点的替代法-注解-->
 	<!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+	
+	<import resource="EhCache.xml" />
 </beans>

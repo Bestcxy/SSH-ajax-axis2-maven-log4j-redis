@@ -1,0 +1,19 @@
+<ehcache>
+    <diskStore path="c:\\cache"/>    //设置cache.data文件存放位置
+
+    <defaultCache
+                maxElementsInMemory="10000" //缓存中允许创建的最大对象数
+                eternal="false"    //缓存中对象是否为永久的
+                timeToIdleSeconds="120"//缓存数据钝化时间(即对象在它过期前的空闲时间)
+                timeToLiveSeconds="120"//缓存数据生存时间(即对象在它过期前的生存时间)
+                overflowToDisk="true"
+    />
+    
+    <cache name="Demo"    //用户自定义的Cache配置
+                 maxElementsInMemory="10000"
+                 eternal="false"
+                 timeToIdleSeconds="300"
+                 timeToLiveSeconds="600"
+                 overflowToDisk="true"
+                 />
+</ehcache>
