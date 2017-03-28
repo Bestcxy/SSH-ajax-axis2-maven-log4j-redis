@@ -25,6 +25,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.bestcxx.mavenstu.mavenssh.util.EnumUtil;
 
@@ -33,6 +34,11 @@ import com.bestcxx.mavenstu.mavenssh.util.EnumUtil;
  * @theme 操作 excel 文件的工具类
  * @author wujie
  * @Datetime 2017年3月24日 下午2:52:10
+ * HSSF － 提供读写Microsoft Excel格式档案的功能。 
+ * XSSF － 提供读写Microsoft Excel OOXML格式档案的功能。 
+ * HWPF － 提供读写Microsoft Word格式档案的功能。 
+ * HSLF － 提供读写Microsoft PowerPoint格式档案的功能。 
+ * HDGF － 提供读写Microsoft Visio格式档案的功能。 
  */
 public class FileOfficeExcel {
 	private static Logger logger=LogManager.getLogger(FileOfficeExcel.class);
@@ -139,7 +145,7 @@ public class FileOfficeExcel {
 					if(os!=null){
 						os.close();					
 					}
-					logger.info("新建文件 "+fileName);
+					logger.info("覆盖重写文件 "+fileName);
 				} catch (IOException e) {
 					logger.info(e.toString());
 				}
@@ -175,8 +181,11 @@ public class FileOfficeExcel {
         	logger.info("文件已经存在，删除 "+fileName);
         	file.delete();
         }
-		// 操作excel文件需要实例化 Workbook，借助poi
-		Workbook wb = new HSSFWorkbook();
+		// 操作excel文件需要实例化 Workbook，借助poi，（office 2007 及之后版本XSSF，向前兼容，xlsx 结尾）
+        //HSSF － 提供读写Microsoft Excel格式档案的功能，xls。 
+        //XSSF － 提供读写Microsoft Excel OOXML格式档案的功能。 
+		//Workbook wb = new XSSFWorkbook();
+        Workbook wb = new XSSFWorkbook();
 
 		// 设置字体格式-略 import org.apache.poi.ss.usermodel.Font;
 		// Font font = wb.createFont();
