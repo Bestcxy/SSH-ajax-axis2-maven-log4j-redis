@@ -1,33 +1,22 @@
 package com.bestcxx.mavenstu.mavenssh.file;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FilterInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import com.bestcxx.mavenstu.mavenssh.util.EnumUtil;
 
 /**
  * 
@@ -62,7 +51,6 @@ public class FileOfficeExcel {
 
 			// 操作excel文件需要创建Workbook 对象
 			Workbook wb;
-
 			wb = WorkbookFactory.create(fi);
 
 			// 获得具体的一个sheet页-这里是第一个 
@@ -181,7 +169,7 @@ public class FileOfficeExcel {
         	logger.info("文件已经存在，删除 "+fileName);
         	file.delete();
         }
-		// 操作excel文件需要实例化 Workbook，借助poi，（office 2007 及之后版本XSSF，向前兼容，xlsx 结尾）
+		// 操作excel文件需要实例化 Workbook，借助poi，（office 2007 及之后版本XSSF，向后（下）兼容，xlsx 结尾）
         //HSSF － 提供读写Microsoft Excel格式档案的功能，xls。 
         //XSSF － 提供读写Microsoft Excel OOXML格式档案的功能。 
 		//Workbook wb = new XSSFWorkbook();
