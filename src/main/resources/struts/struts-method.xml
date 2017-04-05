@@ -19,4 +19,13 @@
 				</result> -->
 			</action>
 		</package>
+		
+		<!-- 用于测试checkbox的package http://localhost:8086/mavenssh/checkbox/tocheckbox.action-->
+		<package name="checkbox" extends="mavenssh" namespace="/checkbox">
+			<action name="tocheckbox" class="checkboxAction">
+				<result name="success">/checkbox/checkbox.jsp</result>
+			</action>
+			<!-- http://localhost:8086/mavenssh/checkbox/checkbox.action -->
+			<action name="checkbox" class="checkboxAction" method="checkBox"></action>
+		</package>
 </struts>

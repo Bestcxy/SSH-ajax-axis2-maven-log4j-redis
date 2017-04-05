@@ -1,19 +1,22 @@
-<ehcache>
-    <diskStore path="c:\\cache"/>    //设置cache.data文件存放位置
-
+<ehcache updateCheck="false" dynamicConfig="false">
+    <diskStore path="D:/a/ehcache"/>    //设置cache.data文件存放位置
     <defaultCache
-                maxElementsInMemory="10000" //缓存中允许创建的最大对象数
-                eternal="false"    //缓存中对象是否为永久的
-                timeToIdleSeconds="120"//缓存数据钝化时间(即对象在它过期前的空闲时间)
-                timeToLiveSeconds="120"//缓存数据生存时间(即对象在它过期前的生存时间)
-                overflowToDisk="true"
+		maxEntriesLocalHeap="10000"  //缓存中允许创建的最大对象数
+		eternal="false"              //缓存中对象是否为永久的，如果是，超时设置将被忽略，对象从不过期
+		timeToIdleSeconds="120"      //缓存数据的钝化时间，也就是在一个元素消亡之前，两次访问时间的最大时间间隔值，这只能在元素不是永久驻留时有效，如果改值是0就意味着元素可以停顿无穷长的时间
+		timeToLiveSeconds="120"      //
+		overflowToDisk="true"
+		maxEntriesLocalDisk="10000000"
+		diskPersistent="false"
+		diskExpiryThreadIntervalSeconds="120"
+		memoryStoreEvictionPolicy="LRU"
     />
     
     <cache name="Demo"    //用户自定义的Cache配置
-                 maxElementsInMemory="10000"
-                 eternal="false"
-                 timeToIdleSeconds="300"
-                 timeToLiveSeconds="600"
-                 overflowToDisk="true"
-                 />
+	     maxElementsInMemory="10000"
+	     eternal="false"
+	     timeToIdleSeconds="300"
+	     timeToLiveSeconds="600"
+	     overflowToDisk="true"
+     />
 </ehcache>

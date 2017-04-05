@@ -27,6 +27,7 @@
 	</context:component-scan> -->
 	<!-- action bean -->
 		<bean class="com.bestcxx.mavenstu.mavenssh.control.PersonAction" id="personAction" scope="prototype"/>
+		<bean class="com.bestcxx.mavenstu.mavenssh.control.CheckBoxAction" id="checkboxAction" scope="prototype"/>
 	
 	<!-- axis2 bean -->
 	<!--如果没有ServletContext 则需要增加下面这句 -->
@@ -72,7 +73,7 @@
 			</props>
 		</property>
 		<!-- 使用 EhCache-->
-		<propery name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+		<!-- <propery name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property> -->
 	</bean>
 	
 	<!-- 操作异常转化为Spring的表达方式 -->
@@ -107,5 +108,5 @@
 	<!-- tx:advice和 切点的替代法-注解-->
 	<!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
 	
-	<import resource="EhCache.xml" />
+	<!-- <import resource="EhCache.xml" /> -->
 </beans>
