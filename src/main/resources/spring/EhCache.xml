@@ -1,4 +1,4 @@
-<ehcache updateCheck="false" dynamicConfig="false">
+<!-- <ehcache updateCheck="false" dynamicConfig="false">
     <diskStore path="D:/a/ehcache"/>    //设置cache.data文件存放位置
     <defaultCache
 		maxEntriesLocalHeap="10000"  //缓存中允许创建的最大对象数
@@ -19,4 +19,4 @@
 	     timeToLiveSeconds="600"
 	     overflowToDisk="true"
      />
-</ehcache>
+</ehcache> -->
