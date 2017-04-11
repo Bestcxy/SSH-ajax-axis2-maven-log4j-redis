@@ -28,6 +28,7 @@
 	<!-- action bean -->
 		<bean class="com.bestcxx.mavenstu.mavenssh.control.PersonAction" id="personAction" scope="prototype"/>
 		<bean class="com.bestcxx.mavenstu.mavenssh.control.CheckBoxAction" id="checkboxAction" scope="prototype"/>
+		<bean class="com.bestcxx.mavenstu.mavenssh.control.JstlAction" id="jstlAction" scope="prototype"/>
 	
 	<!-- axis2 bean -->
 	<!--如果没有ServletContext 则需要增加下面这句 -->

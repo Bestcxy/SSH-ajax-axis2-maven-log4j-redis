@@ -28,4 +28,11 @@
 			<!-- http://localhost:8086/mavenssh/checkbox/checkbox.action -->
 			<action name="checkbox" class="checkboxAction" method="checkBox"></action>
 		</package>
+		
+		<!-- 用于测试 Jstl的package http://localhost:8086/mavenssh/jstl/jstl.action -->
+		<package name="jstl" extends="mavenssh" namespace="/jstl">
+			<action name="tojstl" class="jstlAction" method="jstl">
+				<result name="success">/jstl/jstlshow.jsp</result>
+			</action>
+		</package>
 </struts>

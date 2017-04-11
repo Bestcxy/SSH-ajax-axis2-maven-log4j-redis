@@ -43,5 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		密码：<input type="password" name="passWord" id="passWord"/><br /> 
 		<input type="submit" value="提交" /><br />
 	</form>
+	<br>
+	<a href="http://localhost:8086/mavenssh/jstl/tojstl.action">测试 Jstl</a>
+	
 </body>
 </html>
