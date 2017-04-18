@@ -16,5 +16,7 @@ public class FileTxtModelServiceImpl implements FileTxtModelService {
 	public boolean add(FileTxtModel fileTxtModel) {
 		return fileTxtModelDao.add(fileTxtModel);
 	}
+	
+	
 
 }
