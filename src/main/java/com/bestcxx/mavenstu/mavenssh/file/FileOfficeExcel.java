@@ -73,7 +73,7 @@ public class FileOfficeExcel {
 				for(int j=0;j<cellNum;j++){
 					Cell cell=row.getCell(j);
 					cell.setCellType(Cell.CELL_TYPE_STRING);//将表格数据格式转化为字符类型
-					System.out.println(cell.getStringCellValue()+" ");					
+					logger.info(cell.getStringCellValue()+" ");
 				}
 				
 			}
