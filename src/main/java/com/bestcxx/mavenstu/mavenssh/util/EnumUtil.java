@@ -6,6 +6,7 @@ package com.bestcxx.mavenstu.mavenssh.util;
  */
 public enum EnumUtil {
 	//可以以逗号间隔 
+	EHCACHE_DEFAULT_NEWCACHE("newcache"),//默认实例化的 Ehcache 的Cache的名字
 	FILE_OFFICE_EXCEL_NAME("officeExcelDemo.xlsx"),
 	FILE_OFFICE_EXCEL_PATH("src/main/webapp/WEB-INF/file"),//office 的 excel文件
 	COMMON_DATABASE_PROPERTIES("config/jdbc.properties"),

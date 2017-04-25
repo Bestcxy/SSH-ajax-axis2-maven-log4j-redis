@@ -23,7 +23,7 @@ public class SingolenStudy {
 		 a=new AnotherCommonClass();
 	}
 	
-	private static class SingletonHolder{
+	public static class SingletonHolder{
         private final static SingolenStudy instance=new SingolenStudy();
     }
 	

@@ -3,73 +3,56 @@ package com.bestcxx.mavenstu.mavenssh.ehcache;
 import java.lang.reflect.Type;
 import java.lang.reflect.ParameterizedType;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
-import org.junit.Test;
+
+import com.bestcxx.mavenstu.mavenssh.util.EnumUtil;
 
 /**
  * @theme Ehcache 3.2
  *        http://www.ehcache.org/documentation/3.2/getting-started.html
  * @author wujie
  * @param <K>
- * @Datetime 2017年4月19日 上午11:08:22 
+ * @Datetime 2017年4月19日
  * 配置获取 CacheManager 的公共方法，然后是提供获取 Cache 的方法
- * 用法示例: preConfigured.put(1L, "This is preConfigured's value.");
+ * 用法示例: preConfigured.put("keyStr", "This is preConfigured's value.");
  * String value0 = myCache.get(1L);
  * 
  */
-public class EhCacheStudy<T, K> {
-	private CacheManager cacheManager;// 自定义cache
+public class EhCacheStudy {
+	
+	private static Logger logger = LogManager.getLogger(EhCacheStudy.class);
+	private static CacheManager cacheManager;// 自定义cache
+	private final static String alias=EnumUtil.EHCACHE_DEFAULT_NEWCACHE.toString();
 
-	protected Class<T> tClass;
-	protected Class<K> kClass;
-
-	// 利用反射机制获取泛型类子类泛型参数的具体类型-这个必须写在构造方法中
-	public EhCacheStudy() {
-		tClass = (Class<T>) getModelClass(tClass, 0);
-		kClass = (Class<K>) getModelClass(kClass, 1);
-	}
-
-	// 泛型类作为父类，可以获取子类的所有实际参数的类型
-	@SuppressWarnings("unchecked")
-	public Class<?> getModelClass(Class modelClass, int index) {
-		Type genType = this.getClass().getGenericSuperclass();// 得到泛型父类
-		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();// 一个泛型类可能有多个泛型形参，比如ClassName<T,K>
-																				// 这里有两个泛型形参T和K，Class
-																				// Name<T>
-																				// 这里只有1个泛型形参T
-		if (params.length - 1 < index) {
-			modelClass = null;
-		} else {
-			modelClass = (Class) params[index];
-		}
-
-		return modelClass;
-
-	}
-
-	/**
-	 * 当需要获取指定的Cache的时候
-	 * 
-	 * @param alias
-	 * @param keyClasType
-	 * @param valueClassType
-	 */
-	private CacheManager cacheManagerInstances(String alias) {
-		cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
-				.withCache(alias, CacheConfigurationBuilder.newCacheConfigurationBuilder(tClass,
-						kClass, ResourcePoolsBuilder.heap(100)).build())
+	// 利用反射机制获取泛型类子类泛型参数的具体类型-这个必须写在构造方法中-注意，获取单例模式时，必须使用传参的构造方法
+	private EhCacheStudy() {	
+		//在构造方法中实现对cacehManager 的单例模式
+		cacheManager=CacheManagerBuilder.newCacheManagerBuilder()
+				.withCache(alias, CacheConfigurationBuilder.newCacheConfigurationBuilder(String.class,
+						String.class, ResourcePoolsBuilder.heap(100)).build())
 				.build(true);// 这里设置为 true 和 对新创建的对象 init() 效果是一样的
 								// cacheManager.init();
-		return cacheManager;
+		logger.info("\n cacheManager实例化");
 	}
-
+	
+	/**
+	 * @theme 实现单例模式 
+	 * @author wujie
+	 * @Datetime 2017年4月25日
+	 */
+	private static class SingletonHolder{
+        private final static EhCacheStudy instance=new EhCacheStudy();
+    }
+	
 	/**
 	 * 
-	 * @instruction
+	 * @instruction 获取单例的方法是：EhCacheStudy的子类的 getInstance()
 	 * @Datetime 2017年4月20日 上午11:36:52
 	 * @param alias
 	 *            CacheManager 的别名
@@ -79,34 +62,14 @@ public class EhCacheStudy<T, K> {
 	 *            Cached的value 类型,比如 String
 	 * @return
 	 */
-	private CacheManager getSingletonCacheManager(String alias) {
-		if (cacheManager == null) {
-			cacheManager = cacheManagerInstances(alias);
-		}
-		return cacheManager;
-	}
+	private static EhCacheStudy getSingletonCacheManager(){
+        return SingletonHolder.instance;
+    }
+	
 
 	/**
 	 * 
-	 * @instruction 用户输入Cache的名字，获取一个以这个名字命名的 cache 的新实例
-	 * @Datetime 2017年4月20日 下午2:26:42
-	 * @param alias
-	 *            Cache 的别名
-	 * @param keyClasType
-	 *            Cache的key 类型，比如Long
-	 * @param valueClassType
-	 *            Cached的value 类型,比如 String
-	 * @return
-	 */
-	public Cache<T, K> getNewCache(String alias) {
-		return (Cache<T, K>) getSingletonCacheManager(alias).createCache(alias,
-				CacheConfigurationBuilder.newCacheConfigurationBuilder(tClass,
-						kClass, ResourcePoolsBuilder.heap(100)).build());
-	}
-
-	/**
-	 * 
-	 * @instruction 获取指定名字的cache-单例模式
+	 * @instruction 获取指定名字的cache-单例模式-获取系统默认的Cache
 	 * @Datetime 2017年4月20日 下午2:50:02
 	 * @param alias
 	 * @param keyClasType
@@ -114,29 +77,29 @@ public class EhCacheStudy<T, K> {
 	 * @return
 	 * @return
 	 */
-	public Cache<T, K> getSingletonCache(String alias) {
-		return (Cache<T, K>) getSingletonCacheManager(alias).getCache(alias, tClass,
-				kClass);// 传递 Cache 别名，key 类型，value 类型
+	public static Cache<String,String> getSingletonCache() {
+		return  getSingletonCacheManager().cacheManager.getCache(alias, String.class,
+				String.class);// 传递 Cache 别名，key 类型，value 类型
 	}
-
+	
+	/**
+	 * 
+	 * @instruction 将制定的cache从 cacheManager 移除
+	 * @Datetime 2017年4月21日 上午9:26:10
+	 * @param alias
+	 */
+	public static void removeCache(){
+		getSingletonCacheManager().cacheManager.removeCache(alias);
+	}
+	
 	/**
 	 * @instruction
 	 * @Datetime 2017年4月20日 下午2:58:34
 	 */
-	public void closeCacheManager() {
-		if (cacheManager != null) {
-			cacheManager.close();
+	public static void closeCacheManager() {
+		if (getSingletonCacheManager().cacheManager != null) {
+			getSingletonCacheManager().cacheManager.close();
 		}
 		
 	}
-
-	public CacheManager getCacheManager() {
-		return cacheManager;
-	}
-
-	public void setCacheManager(CacheManager cacheManager) {
-		this.cacheManager = cacheManager;
-	}
-
-	
 }
