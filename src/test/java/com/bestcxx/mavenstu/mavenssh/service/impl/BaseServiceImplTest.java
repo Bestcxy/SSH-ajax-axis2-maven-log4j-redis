@@ -1,6 +1,7 @@
 package com.bestcxx.mavenstu.mavenssh.service.impl;
 
 import java.text.SimpleDateFormat;
+
 import junit.framework.TestCase;
 
 import org.junit.Ignore;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bestcxx.mavenstu.mavenssh.model.Book;
@@ -20,7 +22,7 @@ import com.bestcxx.mavenstu.mavenssh.service.BookService;
 @ContextConfiguration(locations={"classpath:spring/applicationContext.xml"})
 //@TransactionConfiguration(transactionManager = "defaultTransactionManager",defaultRollback=false)//事务管理  
 @Rollback(false)
-public class BaseServiceImplTest {
+public class BaseServiceImplTest extends AbstractTransactionalJUnit4SpringContextTests{
 	@Autowired
 	private BookService bookService;
 	

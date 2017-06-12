@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractTransactionalJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bestcxx.mavenstu.mavenssh.model.Person;
@@ -23,7 +24,7 @@ import com.bestcxx.mavenstu.mavenssh.service.PersonService;
 @ContextConfiguration(locations={"classpath:spring/applicationContext.xml"})
 //@TransactionConfiguration(transactionManager = "defaultTransactionManager",defaultRollback=false)//事务管理  
 @Rollback(false)
-public class PersonServiceImplTest {
+public class PersonServiceImplTest extends AbstractTransactionalJUnit4SpringContextTests {
 	@Autowired
 	private PersonService personService;
 	
