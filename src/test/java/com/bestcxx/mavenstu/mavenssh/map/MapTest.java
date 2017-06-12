@@ -1,8 +1,12 @@
 package com.bestcxx.mavenstu.mavenssh.map;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.junit.Test;
+
+import junit.framework.TestCase;
 
 public class MapTest {
 	
@@ -27,6 +31,36 @@ public class MapTest {
 		System.out.println(id);
 		System.out.println(name);
 		
+	}
+	
+	@Test 
+	public void testH(){
+		ArrayList<inneUser> list=new ArrayList<inneUser>();
+		inneUser inner=null;
+		if(list.size()>0){
+			inner=list.get(0);
+		}
+		
+		TestCase.assertEquals(true, inner==null);
+	}
+	
+	
+	@Test
+	public void testBigDecimal(){
+		BigDecimal a=new BigDecimal("0.011");
+		BigDecimal b=new BigDecimal("0.01");
+		
+		System.out.println(a.add(b).toString());
+	}
+	
+	//测试   String+int 转 BigDecimal 然后转 String
+	@Test
+	public void testStrIntBigDecimal(){
+		String a="100.01";
+		Integer b=10;
+		BigDecimal c=(new BigDecimal(a)).add(new BigDecimal(b));
+		System.out.println(c.toString());
+		System.out.println((new BigDecimal(a)).add(new BigDecimal(b)).toBigInteger().toString());
 	}
 
 }
