@@ -18,7 +18,6 @@ public class ServerSocketAction {
 	public static void main(String[] args) {
 		try {
 			//创建服务器端的 Socket
-			@SuppressWarnings("resource")
 			ServerSocket serverSocket=new ServerSocket(10000);
 			
 			//开始监听服务器端的 Socket,一旦客户端调用 socket 就被实例化
@@ -31,13 +30,13 @@ public class ServerSocketAction {
 			for(int n;(n=inputStream.read(b))!=-1;){
 				sbf.append(new String(b,0,n));				
 			}
-			System.out.println("客户端传递进来的信息为："+sbf.toString());
+			System.out.println(System.currentTimeMillis()+"客户端传递进来的信息为："+sbf.toString());
 			socket.shutdownInput();
 			
 			//向客户端反馈信息
 			OutputStream outputStream=socket.getOutputStream();
 			PrintWriter printWriter=new PrintWriter(outputStream);
-			printWriter.write("我是服务端");
+			printWriter.write(System.currentTimeMillis()+"我是服务端");
 			printWriter.flush();
 			socket.shutdownOutput();
 			

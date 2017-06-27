@@ -31,7 +31,7 @@ public class ClientSocketAction {
 			for(int n;(n=inputStream.read(b))!=-1;){
 				sbf.append(new String(b,0,n));				
 			}
-			System.out.println("服务器端反馈进来的信息为："+sbf.toString());
+			System.out.println(System.currentTimeMillis()+" 服务器端反馈进来的信息为："+sbf.toString());
 			socket.shutdownInput();
 			
 			//关闭资源
