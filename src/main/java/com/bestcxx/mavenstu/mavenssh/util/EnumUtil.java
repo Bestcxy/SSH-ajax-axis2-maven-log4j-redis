@@ -4,7 +4,7 @@ package com.bestcxx.mavenstu.mavenssh.util;
  * @theme 枚举类-设置静态变量
  * @author wujie
  */
-public enum EnumUtil {
+public enum EnumUtil{
 	//可以以逗号间隔 
 	EHCACHE_DEFAULT_NEWCACHE("newcache"),//默认实例化的 Ehcache 的Cache的名字
 	FILE_OFFICE_EXCEL_NAME("officeExcelDemo.xlsx"),
