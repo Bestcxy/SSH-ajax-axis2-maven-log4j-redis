@@ -1,9 +1,6 @@
 package com.bestcxx.mavenstu.mavenssh.redis;
 
-import junit.framework.TestCase;
-
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 //@Ignore
@@ -49,6 +46,24 @@ public class RedisServerTest {
 	public void testRedisLindex(){
 		String value=redisServer.redisLindex("list1", 1L);
 		System.out.println("队列第一个值为="+value);
+	}
+	
+	@Test
+	public void testRedisHset(){
+		String key="hashmap";
+		String field="map3";
+		String value="map3";
+		Long result=redisServer.redisHset(key, field, value);
+		System.out.println("result="+result);
+	}
+	
+	@Test
+	public void testRedisHget(){
+		String key="hashmap";
+		String field="map3";
+		String result=redisServer.redisHget(key, field);
+		System.out.println("result="+result);
+
 	}
 }
 

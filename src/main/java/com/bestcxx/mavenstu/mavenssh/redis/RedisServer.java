@@ -183,5 +183,28 @@ public class RedisServer {
 		return jedis.lindex(key, i);
 	}
 	
+	/**
+	 * Redis 操作 hashmap  
+	 */
+	/**
+	 * Redis hashMap 存储
+	 * @param key     hashmap 的 名字
+	 * @param field   map<key,value>的key值
+	 * @param value   map<key,value>的value 值
+	 * @return
+	 */
+	public Long redisHset(String key,String field,String value){
+		return jedis.hset(key, field, value);
+	}
+	
+	/**
+	 * Redis hashMap 取值
+	 * @param key     hashmap 的 名字
+	 * @param field   map<key,value>的key值
+	 * @return
+	 */
+	public String redisHget(String key,String field){
+		return jedis.hget(key, field);
+	};
 	
 }
