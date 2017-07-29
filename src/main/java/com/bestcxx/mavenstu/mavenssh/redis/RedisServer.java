@@ -61,7 +61,7 @@ public class RedisServer {
 	/**
 	 * 返还实例，避免多线程操作混乱
 	 */
-	public void RedisServerJedisOver() {
+	public void redisServerJedisOver() {
 		//这里很重要，一旦拿到的jedis实例使用完毕，必须要返还给池中
 		jedis.close();
 		
@@ -70,7 +70,7 @@ public class RedisServer {
 	/**
 	 * 程序关闭时，关闭资源
 	 */
-	public void RedisServerPoolOver(){
+	public void redisServerPoolOver(){
 		//关闭资源
 		pool.destroy();
 	}
@@ -83,7 +83,7 @@ public class RedisServer {
 	 * @param value
 	 * @return
 	 */
-	public boolean RedisSet(String key,String value){
+	public boolean redisSet(String key,String value){
 		jedis.set(key, value);
 		return true;
 	}
@@ -93,7 +93,7 @@ public class RedisServer {
 	 * @param key
 	 * @return
 	 */
-	public Object RedisGet(String key){
+	public Object redisGet(String key){
 		return jedis.get(key);
 	}
 	
@@ -105,7 +105,7 @@ public class RedisServer {
 	 * @param value1
 	 * @return
 	 */
-	public boolean RedisMset(String key0,String value0,String key1,String value1){
+	public boolean redisMset(String key0,String value0,String key1,String value1){
 		jedis.mset(key0, value0,key1,value1);
 		return true;
 	}
@@ -116,7 +116,7 @@ public class RedisServer {
 	 * @param key1
 	 * @return
 	 */
-	public List<String> RedisMget(String key0,String key1){
+	public List<String> redisMget(String key0,String key1){
 		return jedis.mget(key0,key1);
 	}
 	
@@ -126,9 +126,8 @@ public class RedisServer {
 	 * @param value
 	 * @return
 	 */
-	public boolean RedisAppend(String key,String value){
-		jedis.append(key, value);
-		return true;
+	public boolean redisAppend(String key,String value){
+		return "OK".equals(jedis.append(key, value));
 	}
 	
 	/**
@@ -137,9 +136,51 @@ public class RedisServer {
 	 * @param value
 	 * @return
 	 */
-	public boolean RedisDel(String key,String value){
-		jedis.del(key,value);
-		return true;
+	public boolean redisDel(String key,String value){
+		return "OK".equals(jedis.del(key,value));
+	}
+	
+	/**
+	 * Redis 操作List
+	 */
+	/**
+	 * Redis 覆盖指定list的指定序数位置的元素值
+	 * @param key list 名称
+	 * @param index  序数位
+	 * @param value  保存的元素值
+	 * @return
+	 */
+	public boolean redisLset(String key,Integer index,String value){
+		return "OK".equals(jedis.lset(key, index, value));
+	}
+	
+	/**
+	 * Reids 在list末尾增加一个或多个值
+	 * @param key list名横
+	 * @param strings  值串，比如：1,2,3多个参数或者数组
+	 * @return
+	 */
+	public Long redisRpush(String key,String ...strings){
+		return jedis.rpush(key, strings);
+	}
+	
+	/**
+	 * Redis删除list第一个元素，并返回删除的元素
+	 * @param key list的名字
+	 * @return
+	 */
+	public String redisLpop(String key){
+		return jedis.lpop(key);
+	}
+	
+	/**
+	 * Redis 获取 list 的 第 index个元素
+	 * @param key
+	 * @param i
+	 * @return
+	 */
+	public String redisLindex(String key,Long i){
+		return jedis.lindex(key, i);
 	}
 	
 	
