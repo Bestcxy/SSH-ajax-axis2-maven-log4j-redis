@@ -1,6 +1,7 @@
 package com.bestcxx.mavenstu.mavenssh.redis;
 
 import java.util.List;
+import java.util.Set;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -214,5 +215,50 @@ public class RedisServer {
 	public String redisHget(String key,String field){
 		return jedis.hget(key, field);
 	};
+	
+	/**
+	 * Redis 操作 set
+	 */
+	/**
+	 * Redis 向 set　结合添加元素
+	 * @param key　　set 的名称
+	 * @param members  添加的数组
+	 * @return
+	 */
+	public Long sAdd(String key,String ...members){
+		return jedis.sadd(key, members);
+	}
+	
+	/**
+	 * Redis 获取 set集合的所有元素
+	 * @param key
+	 * @return 
+	 */
+	public Set<String> sMembers(String key){
+		return jedis.smembers(key);
+	}
+	
+	/**
+	 * Redis 操作 sort set
+	 */
+	/**
+	 * Redis 操作 sort set 添加指定元素到指定序位
+	 * @param key set 的 name
+	 * @param score 序数位
+	 * @param member  值
+	 * @return
+	 */
+	public Long zAdd(String key,double score,String member){
+		return jedis.zadd(key, score, member);
+	}
+	
+	/**
+	 * 遍历 sort　的所有值
+	 * @param key
+	 * @return 
+	 */
+	public Set<String> zRange(String key,double min,double max){
+		return jedis.zrangeByScore(key, min, max);
+	}
 	
 }

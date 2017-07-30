@@ -1,5 +1,8 @@
 package com.bestcxx.mavenstu.mavenssh.redis;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -65,5 +68,46 @@ public class RedisServerTest {
 		System.out.println("result="+result);
 
 	}
+	
+	@Test
+	public void testSAdd(){
+		String key="mao";
+		String[] members={"map1","map2","map3"};
+		redisServer.sAdd(key, members);
+	}
+	
+	@Test
+	public void testSMembers(){
+		String key="mao";
+		Set<String> set=redisServer.sMembers(key);
+		
+		Iterator<String> it=set.iterator();
+		while(it.hasNext()){
+			System.out.println(it.next());
+		}
+		
+	}
+	
+	@Test
+	public void testZAdd(){
+		String key="sortmap";
+		double score=0;
+		String member="testSortMap";
+		redisServer.zAdd(key, score, member);
+	}
+	
+	@Test
+	public void testZRange(){
+		String key="sortmap";
+		double min=0;
+		double max=5;
+		Set<String> set=redisServer.zRange(key, min, max);
+		Iterator<String> it=set.iterator();
+		while(it.hasNext()){
+			System.out.println(it.next());
+		}
+		
+	}
 }
+
 
