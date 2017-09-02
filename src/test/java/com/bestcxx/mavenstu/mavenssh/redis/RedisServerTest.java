@@ -6,6 +6,9 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.bestcxx.mavenstu.mavenssh.model.Book;
+import com.bestcxx.mavenstu.mavenssh.util.SerializationAndDeserializationUtil;
+
 //@Ignore
 public class RedisServerTest {
 	private RedisServer redisServer;
@@ -107,6 +110,20 @@ public class RedisServerTest {
 			System.out.println(it.next());
 		}
 		
+	}
+	
+	@Test
+	public void testObjectSerialiable(){
+		Book book=new Book();
+		book.setBookName("Name");
+		String bookSerialiable=SerializationAndDeserializationUtil.objectSerialiable(book);
+		redisServer.redisSet("bookSerialiable", bookSerialiable);
+	}
+	
+	@Test
+	public void testObjectDeserialization(){
+		Book book=(Book)(SerializationAndDeserializationUtil.objectDeserialization((String)redisServer.redisGet("bookSerialiable")));
+		System.out.println(book.getBookName());
 	}
 }
 
