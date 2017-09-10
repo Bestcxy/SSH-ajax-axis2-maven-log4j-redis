@@ -1,10 +1,13 @@
 package com.bestcxx.mavenstu.mavenssh.common.test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
 
-import java.util.HashMap;
+import com.bestcxx.mavenstu.mavenssh.model.Person;
 
 public class CommonTest {
 	
@@ -35,6 +38,21 @@ public class CommonTest {
 			System.out.println(new Integer((String)map.get("numInteger").toString())>0);
 		}
 		
+	}
+	
+	/**
+	 * List 添加实体是地址引用，新家实体必须是一个新对象，对象不可重复使用，否则保存数据将后最后一次保存的信息一致
+	 * 下面是错误示范
+	 */
+	@Test
+	public void testListUser(){
+		List<Person> list=new ArrayList<Person>();
+		Person p =new Person();
+		for(int i=0;i<5;i++){
+			p.setUserName(i+"");
+			list.add(p);
+		}
+		System.out.println(list.toString());
 	}
 
 }
